@@ -37,7 +37,7 @@ pip install opencv-python numpy
 *   `core/`: 
 
 ## 🎮 Uso
-Cómo se arranca el programa y qué teclas debe usar el usuario (ej: 'q' para salir, 's' para escanear).
+
 
 \`\`\`bash
 python main.py
