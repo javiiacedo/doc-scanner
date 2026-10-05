@@ -4,7 +4,7 @@ In this project, the core objective is to build a document scanner capable of sc
 
 ## 🚀 Features
 *   Real-time video capture.
-*   Application of smoothing filters, the Canny algorithm for edge detection, and Harris corner detector / CCL for keypoint extraction.
+*   Application of smoothing filters, the Canny algorithm for edge detection, and Harris corner detector / NCC for keypoint extraction.
 *   Adaptive geometric detection, perspective correction (Homography), and automatic vertex alignment.
 
 ## 🧠 Technical Pipeline (Architecture)
