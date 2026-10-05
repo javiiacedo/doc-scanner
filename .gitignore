@@ -1,0 +1,24 @@
+# 1. Entornos virtuales
+venv/
+env/
+
+# 2. Caché y binarios precompilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 3. Entorno de desarrollo (VS Code)
+.vscode/
+
+# 4. Archivos temporales del Sistema Operativo
+Thumbs.db
+.DS_Store
+
+# 5. Datos de prueba del proyecto de Visión
+# (Ignoramos imágenes y vídeos locales para no saturar Git)
+data/
+*.mp4
+*.avi
+*.jpg
+*.jpeg
+*.png
