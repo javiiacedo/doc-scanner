@@ -10,7 +10,7 @@ En este proyecto, la idea principal es utilizar un escáner de documentos para p
 ## 🧠 Pipeline Técnico (Arquitectura)
 Explica aquí brevemente las 4 fases matemáticas por las que pasa cada frame:
 1.  **Captura y E/S**: Lectura del buffer de vídeo mediante `cv2.VideoCapture`.
-2.  **Preprocesamiento Espacial**: Para la primera fase, vamos a usar una escala de grises para poder encontrar facilmente el contorno del documento que estamos analizando. Posteriormente, aplicaremos un filtro gaussiano para eliminar el posible ruido que tiene la imagen. Detectaremos los bordes utilizando el algoritmo de Canny. Algunas funciones que utilizaremos: cv2.cvtColor, cv2.GaussianBlur y cv2.Canny.
+2.  **Preprocesamiento Espacial**: Para la primera fase, vamos a usar una escala de grises para poder encontrar facilmente el contorno del documento que estamos analizando. Posteriormente, aplicaremos un filtro gaussiano para eliminar el posible ruido que tiene la imagen. Detectaremos los bordes utilizando el algoritmo de Canny. Algunas funciones que utilizaremos: `cv2.cvtColor`, `cv2.GaussianBlur` y `cv2.Canny`.
 3.  **Extracción de Geometría**: Búsqueda de contornos, aproximación poligonal (Douglas-Peucker) para simplificar vértices y filtrado heurístico para aislar el polígono cuadrangular más grande.
 4.  **Transformación de Perspectiva**: Ordenación espacial de las 4 esquinas y aplicación de matriz de homografía (`cv2.warpPerspective`) para obtener el plano cenital.
 
@@ -22,13 +22,11 @@ Estas son las intrucciones y comandos a ejecutar para poder utilizar el sistema 
 -Activar el entorno (en CMD ya que en PowerShell no funciona por tema de permisos): `.\venv\Scripts\activate` (Todo esto dentro de tu carpeta)
 -Instalar numpy y OpenCV dentro del entorno virtual que acabas de crear
 
-\`\`\`bash
-git clone https://github.com/javiiacedo/doc-scanner.git
-cd Documents/doc-scanner
-python -m venv venv
-.\venv\Scripts\activate
-pip install opencv-python numpy
-\`\`\`
+`git clone https://github.com/javiiacedo/doc-scanner.git`
+`cd Documents/doc-scanner`
+`python -m venv venv`
+`.\venv\Scripts\activate`
+`pip install opencv-python numpy`
 
 ## 📂 Estructura del Proyecto
 
