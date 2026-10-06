@@ -1,44 +1,40 @@
-# Escáner de Documentos Inteligente (Computer Vision)
+# Intelligent Document Scanner (Computer Vision)
 
-En este proyecto, la idea principal es utilizar un escáner de documentos para poder escanear un documento con el objetivo de convertir una imagen a formato PDF. Se utiliza Python y principalmente las librerías de Numpy y OpenCV para el procesamiento de las imágenes y videos.
+In this project, the core objective is to build a document scanner capable of scanning a physical document to convert an image into PDF format. It is developed in Python, primarily leveraging the NumPy and OpenCV libraries for image and video processing.
 
-## 🚀 Características
-*   Captura de vídeo en tiempo real.
-*   Utilización de filtros de suavizado, algoritmo de Canny para detección de bordes y de Harrys y LCC para detectar keypoints.
-*   Detección Geométrica adaptativa, corrección de perspectiva(Homografía) y alineación automática de vértices
+## 🚀 Features
+*   Real-time video capture.
+*   Application of smoothing filters, the Canny algorithm for edge detection, and Harris corner detector / NCC for keypoint extraction.
+*   Adaptive geometric detection, perspective correction (Homography), and automatic vertex alignment.
 
-## 🧠 Pipeline Técnico (Arquitectura)
-Explica aquí brevemente las 4 fases matemáticas por las que pasa cada frame:
-1.  **Captura y E/S**: Lectura del buffer de vídeo mediante `cv2.VideoCapture`.
-2.  **Preprocesamiento Espacial**: Para la primera fase, vamos a usar una escala de grises para poder encontrar facilmente el contorno del documento que estamos analizando. Posteriormente, aplicaremos un filtro gaussiano para eliminar el posible ruido que tiene la imagen. Detectaremos los bordes utilizando el algoritmo de Canny. Algunas funciones que utilizaremos: cv2.cvtColor, cv2.GaussianBlur y cv2.Canny.
-3.  **Extracción de Geometría**: Búsqueda de contornos, aproximación poligonal (Douglas-Peucker) para simplificar vértices y filtrado heurístico para aislar el polígono cuadrangular más grande.
-4.  **Transformación de Perspectiva**: Ordenación espacial de las 4 esquinas y aplicación de matriz de homografía (`cv2.warpPerspective`) para obtener el plano cenital.
+## 🧠 Technical Pipeline (Architecture)
+Briefly explains the 4 mathematical stages each frame undergoes:
+1.  **Capture and I/O**: Reading from the video buffer using `cv2.VideoCapture`.
+2.  **Spatial Preprocessing**: In this initial stage, we convert the image to grayscale to easily locate the boundaries of the target document. Next, a Gaussian filter is applied to remove potential image noise, followed by edge detection using the Canny algorithm. Key functions used: `cv2.cvtColor`, `cv2.GaussianBlur`, and `cv2.Canny`.
+3.  **Geometry Extraction**: Contour detection, polygonal curve approximation (Douglas-Peucker algorithm) to simplify vertices, and heuristic filtering to isolate the largest quadrangular polygon.
+4.  **Perspective Transformation**: Spatial ordering of the 4 detected corners and computation of the homography matrix (`cv2.warpPerspective`) to extract the rectified, top-down view.
 
-## ⚙️ Requisitos e Instalación
-Estas son las intrucciones y comandos a ejecutar para poder utilizar el sistema en tu máquina:
--Tener instalado Python y tener una cámara web operativa
--Clonar el código de este mismo repositorio
--Crear un entorno virtual `python -m venv venv`
--Activar el entorno (en CMD ya que en PowerShell no funciona por tema de permisos): `.\venv\Scripts\activate` (Todo esto dentro de tu carpeta)
--Instalar numpy y OpenCV dentro del entorno virtual que acabas de crear
+## ⚙️ Requirements & Installation
+Follow these instructions and commands to set up and run the system locally:
 
-\`\`\`bash
-git clone https://github.com/javiiacedo/doc-scanner.git
-cd Documents/doc-scanner
-python -m venv venv
-.\venv\Scripts\activate
-pip install opencv-python numpy
-\`\`\`
+- Python installed and a functional webcam.
+- Clone this repository.
+- Create a virtual environment: `python -m venv venv`
+- Activate the environment (in CMD, as PowerShell may restrict script execution due to execution policy permissions): `.\venv\Scripts\activate` (run this inside your project root directory).
+- Install NumPy and OpenCV inside the newly created virtual environment.
 
-## 📂 Estructura del Proyecto
+`git clone https://github.com/javiiacedo/doc-scanner.git`
+`cd Documents/doc-scanner`
+`python -m venv venv`
+`.\venv\Scripts\activate`
+`pip install opencv-python numpy`
 
-*   `main.py`: Punto de entrada y bucle principal de vídeo.
-*   `io/camera_stream.py`: Encapsulación del hardware de captura.
+## 📂 Project's structure
+
+*   `main.py`:
+*   `io/camera_stream.py`:
 *   `core/`: 
 
-## 🎮 Uso
-Cómo se arranca el programa y qué teclas debe usar el usuario (ej: 'q' para salir, 's' para escanear).
+## 🎮 Usage
 
-\`\`\`bash
-python main.py
-\`\`\`
+`python main.py`
