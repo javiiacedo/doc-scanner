@@ -33,7 +33,7 @@ def resize_image(image, max_dim=800):
     scaled_image = cv2.resize(image, (new_width, new_height), interpolation=cv2.INTER_AREA)
     return scaled_image, scale_factor
 
-def edge_detection(image,lower_threshold, upper_threshold):
+def edge_detection(image):
     """
         Apply gaussian blur for smoothing the image, reducing noise and Canny algorithm for detecting edges
     
@@ -46,11 +46,10 @@ def edge_detection(image,lower_threshold, upper_threshold):
         Returns:
             A binary picture where white pixels (255) represent edges
         """
-    filtered = cv2.bilateralFilter(image, d=11, sigmaColor=85, sigmaSpace=85)
-    edges = cv2.Canny(filtered, lower_threshold, upper_threshold)
-    morph_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
-    dilated_edges = cv2.dilate(edges, morph_kernel, iterations=1)
-    return dilated_edges
+    filtered = cv2.GaussianBlur(image, (5, 5), 0)
+    _, binary = cv2.threshold(filtered, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    return binary
+
 
 def find_document_contours(edges):
     """
@@ -64,14 +63,16 @@ def find_document_contours(edges):
         numpy.ndarray or None: The coordinates of the 4 vertices of the document,
                                or None if no valid document is found.
     """
-    cnts,_ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  #With this function we find all the contours of the image
+    cnts, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not cnts:
+        return None
+
+    c0 = max(cnts, key=cv2.contourArea)
     
-    cnts = sorted(cnts, key=cv2.contourArea, reverse = True)[:5]   #We keep the 5 largest edges so we dont have a lot of edges that correspond to small letters and numbers
-    document_contour = None
-    for contour in cnts:
-        epsilon = 0.02 * cv2.arcLength(contour,True)
-        approx = cv2.approxPolyDP(contour, epsilon, True)
-        if len(approx) == 4:
-            document_contour = approx
-            break
-    return document_contour
+    hull = cv2.convexHull(c0)
+    peri = cv2.arcLength(hull, True)
+    approx = cv2.approxPolyDP(hull, 0.02 * peri, True)
+    
+    if len(approx) == 4:
+        return approx
+    return None
